@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface OrderState {
-  order: {} | null;
+  orders: {} | null;
   isLoading: boolean;
 }
 
 const initialState: OrderState = {
-  order: null,
+  orders: null,
   isLoading: false,
 };
 
@@ -18,7 +18,7 @@ export const orderSlice = createSlice({
       state.isLoading = true;
     },
     getOrderSuccess: (state, action: PayloadAction<OrderState | any>) => {
-      state.order = action.payload;
+      state.orders = action.payload;
       state.isLoading = false;
     },
     getOrderFailure: state => {

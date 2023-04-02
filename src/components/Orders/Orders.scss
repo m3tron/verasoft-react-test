@@ -1,0 +1,7 @@
+@use "../../theme/theme";
+
+.orders-tabs-container {
+  background-color: theme.$tabs-container-bg;
+  width: 100%;
+  height: 81px;
+}

@@ -1,0 +1,95 @@
+@use "../../theme/theme";
+
+.namebar {
+  width: theme.$width;
+  display: flex;
+  justify-content: space-between;
+}
+
+.name {
+  display: flex;
+  color: #000000;
+  font-size: 25px;
+}
+
+.user-information {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin user-information-element {
+  background-color: theme.$info-bg;
+  font-size: 12px;
+}
+
+.user-image {
+  @include user-information-element;
+  width: 97px;
+  height: 125px;
+  text-align: center;
+}
+
+.user-contact {
+  @include user-information-element;
+  width: 239px;
+  height: 125px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+@mixin activity-title {
+  height: 30px;
+  display: grid;
+  place-items: center;
+}
+
+.user-activity-title {
+  @include user-information-element;
+  @include activity-title;
+  width: 559px;
+}
+
+.user-activity-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-activity {
+  @include user-information-element;
+  width: 185px;
+  height: 95px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.user-activity-name {
+  background-color: #00000010;
+  width: 100%;
+  height: 24px;
+  font-size: 10px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+}
+
+.user-activity-result {
+  font-weight: 600;
+  font-size: 50px;
+}
+
+.user-status {
+  background-color: theme.$status-bg;
+  width: 225px;
+  height: 125px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.user-status-title {
+  @include activity-title;
+}
