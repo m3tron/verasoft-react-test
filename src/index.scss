@@ -1,13 +1,44 @@
+@use "./theme/theme";
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  margin: 0 auto;
+  font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: theme.$height;
+  width: theme.$max-width;
+  display: flex;
+  justify-content: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button {
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: 300ms;
+
+  &:hover {
+    box-shadow: 0 0 5px grey;
+  }
+}
+
+table {
+  width: theme.$width;
+  border-spacing: 0;
+  text-align: left;
+}
+
+tr {
+  display: flex;
+
+  align-items: center;
+  width: theme.$width;
+  font-size: 14px;
+}
+
+td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-left: 10px;
 }
