@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./Orders.scss";
 import OrderTableContainer from "./OrderTableContainer";
 import OrderTabsContainer from "./OrderTabsContainer";
