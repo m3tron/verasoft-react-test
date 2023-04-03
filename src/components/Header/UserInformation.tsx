@@ -6,7 +6,6 @@ import UserStatus from "./UserStatus";
 const UserInformation = () => {
   return (
     <>
-      <hr />
       <div className="user-information">
         <UserImage />
         <UserContact />

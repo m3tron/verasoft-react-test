@@ -4,4 +4,139 @@
   background-color: theme.$tabs-container-bg;
   width: 100%;
   height: 81px;
+  margin: 7px 0 2px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  border-bottom: theme.$tabs-container-border-color 2px solid;
+}
+
+.orders-tab {
+  background-color: theme.$tab-bg;
+  height: 40px;
+  width: 165px;
+  color: theme.$tab-text-color;
+  display: grid;
+  place-items: center;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 300ms;
+
+  &:hover:not(.orders-tab-selected) {
+    background-color: #00000050;
+  }
+}
+
+.orders-tab-selected {
+  background-color: theme.$tab-selected-bg;
+  color: #ffffff;
+  cursor: default;
+}
+
+.orders-header-container {
+  height: 41px;
+  width: theme.$width;
+  color: #ffffff;
+  background-color: theme.$orders-header-bg;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.orders-header-buttons-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.orders-header-buttons {
+  font-family: arial, sans-serif;
+  font-size: 10px;
+  background: none;
+  color: #ffffff;
+  box-shadow: none;
+  padding: 6px 20px;
+  border-radius: 11px;
+
+  &:first-child {
+    margin-right: 5px;
+  }
+}
+
+.orders-header-buttons-active {
+  background-color: #ffffff;
+  color: theme.$tab-text-color;
+}
+
+.orders-header-title {
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.orders-table-headers-container {
+  height: 25px;
+  border-bottom: theme.$table-header-border-color solid 1px;
+}
+
+.orders-table-header {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  color: theme.$table-header-text-color;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.orders-table-row {
+  height: 70px;
+  border-bottom: theme.$table-row-border-color solid 1px;
+
+  &:nth-child(even) {
+    background-color: theme.$table-row-bg;
+  }
+}
+
+.orders-table-row-emphasis {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.orders-table-row-button {
+  height: 28px;
+  width: 88px;
+  color: #ffffff;
+  background-color: theme.$table-row-button-bg;
+  font-family: arial, sans-serif;
+  font-size: 12px;
+}
+
+.orders-table-col1 {
+  width: 155px;
+}
+
+.orders-table-col2 {
+  width: 456px;
+}
+
+.orders-table-col3 {
+  width: 230px;
+}
+
+.orders-table-col4 {
+  width: 191px;
+}
+
+.orders-table-col5 {
+  width: 103px;
+}
+
+.orders-placeholder {
+  height: 200px;
+  background-color: theme.$order-placeholder-bg;
+  color: theme.$order-placeholder-text;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
 }

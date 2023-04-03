@@ -5,6 +5,7 @@ const UserImage = () => {
 
   const image = () => {
     if (user?.photo_url) return <img src={user.photo_url} alt="Profile" />;
+    return <i className="fal fa-user"></i>;
   };
 
   const date = new Date();
@@ -17,8 +18,8 @@ const UserImage = () => {
   }
 
   return (
-    <div className="user-image">
-      {image()}
+    <div className="user-image-container">
+      <div className="user-image">{image()}</div>
       <p>
         {user?.gender.toUpperCase()} - {age}
       </p>

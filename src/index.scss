@@ -10,3 +10,35 @@ body {
   display: flex;
   justify-content: center;
 }
+
+button {
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: 300ms;
+
+  &:hover {
+    box-shadow: 0 0 5px grey;
+  }
+}
+
+table {
+  width: theme.$width;
+  border-spacing: 0;
+  text-align: left;
+}
+
+tr {
+  display: flex;
+
+  align-items: center;
+  width: theme.$width;
+  font-size: 14px;
+}
+
+td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-left: 10px;
+}

@@ -7,11 +7,13 @@ const NameBar = () => {
   return (
     <div className="namebar">
       <div className="name">
-        <div>star</div>
-        <div>{`${firstName} ${lastName}`}</div>
+        <div className="name-icon">
+          <i className="fal fa-star fa-lg"></i>
+        </div>
+        <div className="name-text">{`${firstName} ${lastName}`}</div>
       </div>
       <div>
-        <button>New Button</button>
+        <button className="namebar-button">New Button</button>
       </div>
     </div>
   );
