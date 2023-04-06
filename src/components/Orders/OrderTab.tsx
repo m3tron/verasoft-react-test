@@ -1,16 +1,32 @@
 interface TabProps {
   tabName: string;
-  selectedTab: string;
-  setSelectedTab: (tabName: string) => void;
+  selectedOrder: number;
+  index: number;
+  setSelectedOrder: (index: number) => void;
+  setViewErrors: (error: boolean) => void;
+  setSortDirection: (direction: boolean) => void;
 }
 
-const OrderTab = ({ tabName, selectedTab, setSelectedTab }: TabProps) => {
+const OrderTab = ({
+  tabName,
+  selectedOrder,
+  setSelectedOrder,
+  index,
+  setViewErrors,
+  setSortDirection,
+}: TabProps) => {
+  const handleClick = () => {
+    setSelectedOrder(index);
+    setViewErrors(false);
+    setSortDirection(false);
+  };
+
   return (
     <div
       className={`orders-tab ${
-        tabName === selectedTab && "orders-tab-selected"
+        index === selectedOrder && "orders-tab-selected"
       }`}
-      onClick={() => setSelectedTab(tabName)}
+      onClick={() => handleClick()}
     >
       {tabName.replace("_", " ").toUpperCase()}
     </div>

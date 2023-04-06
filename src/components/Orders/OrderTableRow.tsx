@@ -12,8 +12,9 @@ interface RowProps {
 }
 
 const OrderTableRow = ({ date, time, subject, type, orderId }: RowProps) => {
+  const dateString: string = `${date} ${time}`;
   const formattedDate = format(new Date(date), "EEE, LLL d");
-  const formattedTime = format(new Date(`${date} ${time}`), "h:mm b");
+  const formattedTime = format(new Date(dateString), "h:mm b");
 
   return (
     <tr className="orders-table-row">
