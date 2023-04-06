@@ -5,15 +5,15 @@ import OrderError from "./OrderError";
 import OrderTableTitle from "./OrderTableTitle";
 import OrderTabsContainer from "./OrderTabsContainer";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { Order, Sent, setCurrentOrder } from "../../features/order/orderSlice";
+import { Order, setCurrentOrder } from "../../features/order/orderSlice";
 
 const Orders = () => {
   const [viewErrors, setViewErrors] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(2);
-  const [sortDirection, setSortDirection] = useState(false);
+  const [sortDirection, setSortDirection] = useState(false); //acsending = true, descending = false
 
   const orderState = useAppSelector(state => state.orderState.orders);
-  // const isLoading = useAppSelector(state => state.orderState.isLoading);
+  const isLoading = useAppSelector(state => state.orderState.isLoading);
 
   const ordersKeys = orderState && Object.keys(orderState);
   const orderValues: Order[] | null =
@@ -25,58 +25,64 @@ const Orders = () => {
   // read-only to read&write
   const sortedOrders = orders && [...orders];
 
-  const sortById = () => {
-    sortedOrders &&
-      sortedOrders.sort((order1, order2) =>
-        !sortDirection ? order2.id - order1.id : order1.id - order2.id
-      );
-    setOrders(sortedOrders);
+  const sortByDate = () => {
+    if (sortedOrders) {
+      sortedOrders.sort((order1, order2) => {
+        const date1 = new Date(`${order1.sent_dt} ${order1.sent_tm}`).getTime();
+        const date2 = new Date(`${order2.sent_dt} ${order2.sent_tm}`).getTime();
+
+        return date1 - date2;
+      });
+
+      setOrders(!sortDirection ? sortedOrders.reverse() : sortedOrders);
+      setSortDirection(!sortDirection);
+    }
   };
 
   const sortBySubjectTitle = () => {
-    sortedOrders &&
+    if (sortedOrders) {
       sortedOrders.sort((order1, order2) => {
-        const title1 = order1.subject.title.toUpperCase();
-        const title2 = order2.subject.title.toUpperCase();
+        let title1 = order1.subject.title.toUpperCase();
+        let title2 = order2.subject.title.toUpperCase();
 
-        if (!sortDirection && title2 < title1) return -1;
-        if (!sortDirection && title2 > title1) return 1;
-        if (sortDirection && title2 > title1) return -1;
-        if (sortDirection && title2 < title1) return 1;
-
-        return 0;
+        return title1 < title2 ? -1 : title1 > title2 ? 1 : 0;
       });
-    setOrders(sortedOrders);
+
+      setOrders(!sortDirection ? sortedOrders.reverse() : sortedOrders);
+      setSortDirection(!sortDirection);
+    }
   };
 
   const sortByCommunicationType = () => {
-    sortedOrders &&
+    if (sortedOrders) {
       sortedOrders.sort((order1, order2) => {
-        const title1 = order1.type.toUpperCase();
-        const title2 = order2.type.toUpperCase();
+        const type1 = order1.type.toUpperCase();
+        const type2 = order2.type.toUpperCase();
 
-        if (!sortDirection && title2 < title1) return -1;
-        if (!sortDirection && title2 > title1) return 1;
-        if (sortDirection && title2 > title1) return -1;
-        if (sortDirection && title2 < title1) return 1;
-
-        return 0;
+        return type1 < type2 ? -1 : type1 > type2 ? 1 : 0;
       });
-    setOrders(sortedOrders);
+
+      setOrders(!sortDirection ? sortedOrders.reverse() : sortedOrders);
+      setSortDirection(!sortDirection);
+    }
   };
 
   const sortByOrderNumber = () => {
-    sortedOrders &&
-      sortedOrders.sort((order1, order2) =>
-        !sortDirection
-          ? order2.order_id - order1.order_id
-          : order1.order_id - order2.order_id
-      );
-    setOrders(sortedOrders);
+    if (sortedOrders) {
+      sortedOrders.sort((order1, order2) => {
+        const orderId1 = order1.order_id;
+        const orderId2 = order2.order_id;
+
+        return orderId1 - orderId2;
+      });
+
+      setOrders(!sortDirection ? sortedOrders.reverse() : sortedOrders);
+      setSortDirection(!sortDirection);
+    }
   };
 
   const sortOrders = sentOrders && {
-    orderId: sortById,
+    date: sortByDate,
     subjectTitle: sortBySubjectTitle,
     communicationType: sortByCommunicationType,
     orderNumber: sortByOrderNumber,
@@ -96,11 +102,6 @@ const Orders = () => {
     setViewErrors(false);
   }, [setViewErrors]);
 
-  const handleClick = () => {
-    setSortDirection(!sortDirection);
-    sortOrders?.subjectTitle();
-  };
-
   return (
     <>
       <OrderTabsContainer
@@ -112,17 +113,16 @@ const Orders = () => {
       />
       <OrderTableTitle viewErrors={viewErrors} setViewErrors={setViewErrors} />
 
-      {!viewErrors ? (
+      {viewErrors || isLoading ? (
+        <OrderError />
+      ) : (
         <OrderTable
           orders={orders}
           sortDirection={sortDirection}
           setSortDirection={setSortDirection}
           sortOrders={sortOrders}
         />
-      ) : (
-        <OrderError />
       )}
-      <button onClick={handleClick}>click</button>
     </>
   );
 };

@@ -9,7 +9,7 @@ interface OrderTableProps {
   setSortDirection: (direction: boolean) => void;
   sortOrders:
     | {
-        orderId: () => void;
+        date: () => void;
         subjectTitle: () => void;
         communicationType: () => void;
         orderNumber: () => void;
@@ -19,7 +19,8 @@ interface OrderTableProps {
 }
 
 export enum SortBy {
-  ID = 1,
+  ID,
+  Date,
   SubjectTitle,
   CommunicationType,
   OrderNumber,
@@ -32,7 +33,7 @@ const OrderTable = ({
   sortOrders,
 }: OrderTableProps) => {
   const tableHeaderList = [
-    { name: "date & time", colNumber: 1, sortBy: SortBy.ID },
+    { name: "date & time", colNumber: 1, sortBy: SortBy.Date },
     { name: "subject", colNumber: 2, sortBy: SortBy.SubjectTitle },
     {
       name: "communication type",

@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-
 interface RowProps {
   date: string;
   time: string;
@@ -13,8 +11,17 @@ interface RowProps {
 
 const OrderTableRow = ({ date, time, subject, type, orderId }: RowProps) => {
   const dateString: string = `${date} ${time}`;
-  const formattedDate = format(new Date(date), "EEE, LLL d");
-  const formattedTime = format(new Date(dateString), "h:mm b");
+
+  const formattedDate = new Date(dateString).toLocaleString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+
+  const formattedTime = new Date(dateString).toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  });
 
   return (
     <tr className="orders-table-row">
