@@ -1,42 +1,41 @@
-import { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppSelector } from "../../store/hooks";
 import OrderTab from "./OrderTab";
-import { setCurrentOrder } from "../../features/order/orderSlice";
+import Loader from "../shared/Loader";
 
-const OrderTabsContainer = () => {
-  const [selectedTab, setSelectedTab] = useState("orders_AAA");
-  const orders = useAppSelector(state => state.orderState.orders);
+interface OrderTabsContainerProps {
+  ordersKeys: string[] | null;
+  selectedOrder: number;
+  setViewErrors: (errors: boolean) => void;
+  setSelectedOrder: (order: number) => void;
+  setSortDirection: (direction: boolean) => void;
+}
+
+const OrderTabsContainer = ({
+  ordersKeys,
+  selectedOrder,
+  setSelectedOrder,
+  setViewErrors,
+  setSortDirection,
+}: OrderTabsContainerProps) => {
   const isLoading = useAppSelector(state => state.orderState.isLoading);
-
-  let tabNames;
-
-  if (orders) {
-    tabNames = Object.keys(orders);
-  }
-
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (orders) {
-      // @ts-ignore
-      dispatch(setCurrentOrder(orders[selectedTab]));
-    }
-  }, [dispatch, orders, selectedTab]);
 
   return (
     <div className="orders-tabs-container">
       {isLoading ? (
-        <div>loading</div>
-      ) : (
-        tabNames?.map(tabName => (
+        <Loader loaderSize="loader-small loader-light" />
+      ) : ordersKeys ? (
+        ordersKeys.map(orderKey => (
           <OrderTab
-            key={tabName}
-            tabName={tabName}
-            selectedTab={selectedTab}
-            setSelectedTab={setSelectedTab}
+            key={orderKey}
+            tabName={orderKey}
+            selectedOrder={selectedOrder}
+            setSelectedOrder={setSelectedOrder}
+            index={ordersKeys.indexOf(orderKey)}
+            setViewErrors={setViewErrors}
+            setSortDirection={setSortDirection}
           />
         ))
-      )}
+      ) : null}
     </div>
   );
 };

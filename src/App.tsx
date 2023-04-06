@@ -4,23 +4,20 @@ import { getUserFetch } from "./features/user/userSlice";
 import { getOrderFetch } from "./features/order/orderSlice";
 import "./App.scss";
 
-import Header from "./components/Header";
+import User from "./components/User";
 import Orders from "./components/Orders";
 
 const App = () => {
   const dispatch = useAppDispatch();
 
-  // fetch data on first load
-  // TODO: error handling
   useEffect(() => {
     dispatch(getUserFetch());
     dispatch(getOrderFetch());
   }, [dispatch]);
-  console.log("render");
 
   return (
     <div className="app-container">
-      <Header />
+      <User />
       <Orders />
     </div>
   );

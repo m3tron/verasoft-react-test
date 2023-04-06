@@ -1,33 +1,70 @@
-import { Order } from "../../features/order/orderSlice";
-import { useAppSelector } from "../../store/hooks";
+import { Sent } from "../../features/order/orderSlice";
 import OrderPlaceholder from "./OrderPlaceholder";
 import OrderTableRow from "./OrderTableRow";
+import OrderTableHeader from "./OrderTableHeader";
 
-const OrderTable = () => {
-  const currentOrder = useAppSelector(
-    state => state.orderState.currentOrder?.sent
-  );
+interface OrderTableProps {
+  orders: Sent[] | null | undefined;
+  sortDirection: boolean;
+  setSortDirection: (direction: boolean) => void;
+  sortOrders:
+    | {
+        orderId: () => void;
+        subjectTitle: () => void;
+        communicationType: () => void;
+        orderNumber: () => void;
+      }
+    | null
+    | undefined;
+}
+
+export enum SortBy {
+  ID = 1,
+  SubjectTitle,
+  CommunicationType,
+  OrderNumber,
+}
+
+const OrderTable = ({
+  orders,
+  sortDirection,
+  setSortDirection,
+  sortOrders,
+}: OrderTableProps) => {
+  const tableHeaderList = [
+    { name: "date & time", colNumber: 1, sortBy: SortBy.ID },
+    { name: "subject", colNumber: 2, sortBy: SortBy.SubjectTitle },
+    {
+      name: "communication type",
+      colNumber: 3,
+      sortBy: SortBy.CommunicationType,
+    },
+    { name: "order #", colNumber: 4, sortBy: SortBy.OrderNumber },
+  ];
 
   return (
     <>
-      {currentOrder ? (
+      {orders ? (
         <table>
           <thead>
             <tr className="orders-table-headers-container">
-              <th className="orders-table-header orders-table-col1">
-                DATE & TIME
-              </th>
-              <th className="orders-table-header orders-table-col2">SUBJECT</th>
-              <th className="orders-table-header orders-table-col3">
-                COMMUNICATION TYPE
-              </th>
-              <th className="orders-table-header orders-table-col4">ORDER #</th>
+              {tableHeaderList.map(header => (
+                <OrderTableHeader
+                  key={header.name}
+                  name={header.name}
+                  colNumber={header.colNumber}
+                  sortBy={header.sortBy}
+                  sortDirection={sortDirection}
+                  setSortDirection={setSortDirection}
+                  sortOrders={sortOrders}
+                />
+              ))}
               <th className="orders-table-header orders-table-col5"></th>
             </tr>
           </thead>
           <tbody>
-            {currentOrder &&
-              currentOrder.map((order: Order | any) => (
+            {orders &&
+              orders.map(order => (
                 <OrderTableRow
                   key={order.id}
                   date={order.sent_dt}

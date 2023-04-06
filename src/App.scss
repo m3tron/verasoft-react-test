@@ -5,3 +5,48 @@
   font-size: 12px;
   color: theme.$text-primary;
 }
+
+@mixin loader {
+  border: grey 5px solid;
+  border-top: black 5px solid;
+  border-radius: 50%;
+  animation: spin infinite 2s linear;
+}
+
+.loader-small {
+  @include loader;
+  height: 10px;
+  width: 10px;
+}
+
+.loader-medium {
+  @include loader;
+  height: 20px;
+  width: 20px;
+}
+
+.loader-large {
+  @include loader;
+  height: 30px;
+  width: 30px;
+}
+
+.loader-xlarge {
+  @include loader;
+  height: 50px;
+  width: 50px;
+}
+
+.loader-light {
+  border: theme.$modal-text-color 5px solid;
+  border-top: theme.$modal-bg 5px solid;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

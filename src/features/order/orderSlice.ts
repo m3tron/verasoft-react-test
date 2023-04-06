@@ -1,38 +1,37 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface Orders {
+  order: Order | [] | null;
+}
+
 export interface Order {
+  sent?: Sent[] | null;
+}
+
+export interface Sent {
   id: number;
   order_id: number;
   sent_dt: string;
   sent_tm: string;
-  subject: {
-    title: string;
-    email: string;
-  };
+  subject: Subject;
   type: string;
 }
-export interface Orders {
-  order:
-    | {
-        sent: Order[];
-      }
-    | [];
-}
 
-export interface CurrentOrder {
-  sent: Order[] | [];
+export interface Subject {
+  title: string;
+  email: string;
 }
 
 export interface OrderState {
-  orders: { sent: Order } | null;
+  orders: Orders | [] | null;
   isLoading: boolean;
-  currentOrder: CurrentOrder | null;
+  currentOrder: number;
 }
 
 const initialState: OrderState = {
   orders: null,
   isLoading: false,
-  currentOrder: null,
+  currentOrder: 0,
 };
 
 export const orderSlice = createSlice({
@@ -49,7 +48,7 @@ export const orderSlice = createSlice({
     getOrderFailure: state => {
       state.isLoading = false;
     },
-    setCurrentOrder: (state, action: PayloadAction<CurrentOrder>) => {
+    setCurrentOrder: (state, action: PayloadAction<number>) => {
       state.currentOrder = action.payload;
     },
   },

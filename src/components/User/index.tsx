@@ -1,10 +1,10 @@
 import React from "react";
-import "./Header.scss";
+import "./User.scss";
 
 import NameBar from "./NameBar";
 import UserInformation from "./UserInformation";
 
-const Header = () => {
+const User = () => {
   return (
     <>
       <NameBar />
@@ -13,4 +13,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default User;
