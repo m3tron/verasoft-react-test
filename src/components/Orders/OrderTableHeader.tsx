@@ -3,13 +3,12 @@ import { SortBy } from "./OrderTable";
 interface OrderTableHeaderProps {
   sortDirection: boolean;
   setSortDirection: (direction: boolean) => void;
-  // sortedOrders: (a: string, b: boolean /* , c: string */) => void;
   colNumber: number;
   name: string;
   sortBy: SortBy;
   sortOrders:
     | {
-        orderId: () => void;
+        date: () => void;
         subjectTitle: () => void;
         communicationType: () => void;
         orderNumber: () => void;
@@ -19,21 +18,18 @@ interface OrderTableHeaderProps {
 }
 
 const OrderTableHeader = ({
-  sortDirection,
-  setSortDirection,
-  // sortedOrders,
   colNumber,
   name,
-  sortBy,
   sortOrders,
+
+  sortBy,
 }: OrderTableHeaderProps) => {
   const handleClick = () => {
-    if (SortBy.ID) sortOrders?.orderId();
-    if (SortBy.SubjectTitle) sortOrders?.subjectTitle();
-    if (SortBy.CommunicationType) sortOrders?.communicationType();
-    if (SortBy.OrderNumber) sortOrders?.orderNumber();
-
-    setSortDirection(!sortDirection);
+    if (sortBy === SortBy.Date) sortOrders && sortOrders.date();
+    if (sortBy === SortBy.SubjectTitle) sortOrders && sortOrders.subjectTitle();
+    if (sortBy === SortBy.CommunicationType)
+      sortOrders && sortOrders.communicationType();
+    if (sortBy === SortBy.OrderNumber) sortOrders && sortOrders.orderNumber();
   };
 
   return (
